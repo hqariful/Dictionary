@@ -4,15 +4,24 @@
     <table class="table">
         <thead>
           <tr>
+            <th scope="col">#</th>
             <th scope="col">Word</th>
             <th scope="col">Meaning</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
             {% for word in words %}
                 <tr>
+                    <td>{{word.id}}</td>
                     <td>{{word.word}}</td>
                     <td>{{word.meaning}}</td>
+                    <td>
+                      <form method = "GET" action="{{url_for('change')}}">
+                        <input type="hidden" name="target" value="{{word.id}}">
+                        <button type="submit">Delete</button>
+                      </form>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

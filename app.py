@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
+from werkzeug.utils import redirect
 from forms import Register
 
 app = Flask(__name__)
@@ -29,6 +30,14 @@ def list():
     wordlist = WordList.query.all()
     return render_template("list.html",words = wordlist)
 
+@app.route('/change',methods = ["GET"])
+def change():
+    red = request.args.get('target')
+    u = WordList.query.get(int(red))
+    db.session.delete(u)
+    db.session.commit()
+    return redirect(url_for('list'))
+
 @app.route('/register', methods = ['POST', 'GET'])
 def register():
     form = Register()
@@ -36,8 +45,8 @@ def register():
         new = WordList(word=form.word.data,meaning=form.meaning.data)
         db.session.add(new)
         db.session.commit()
-        return "success"
+        return redirect(url_for('list'))
     return render_template("register.html", form = form)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
