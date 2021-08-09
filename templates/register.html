@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+    <center><h1 >Add New Word</h1></center>
+    <div class="container">
+        <form class="row g-3" method="POST" action="{{ url_for('register') }}">
+            {{ form.hidden_tag() }}
+            <div class="col-md-6">
+                {{ form.word.label(class="form-label") }}
+                {{ form.word(class="form-control") }}
+            </div>
+            <div class="col-md-6">
+                {{ form.meaning.label(class="form-label") }}
+                {{ form.meaning(class="form-control") }}
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Add Word</button>
+            </div>
+        </form>
+    </div>
+    
+{% endblock content %}

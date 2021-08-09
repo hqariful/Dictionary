@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Word Edit Page</h1>
+    <form method="POST" action="{{ url_for('register') }}">
+        {{ form.hidden_tag() }}
+        {{ form.word.label }}
+        {{ form.word }}
+        
+        {{ form.meaning.label }}
+        {{ form.meaning }}
+        <input type="submit" value="submit">
+    </form>
+{% endblock content %}
