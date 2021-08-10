@@ -2,6 +2,8 @@
 {% block content %}
     <center><h1 >Add New Word</h1></center>
     <div class="container">
+
+        {% if action == "register" %}
         <form class="row g-3" method="POST" action="{{ url_for('register') }}">
             {{ form.hidden_tag() }}
             <div class="col-md-6">
@@ -16,6 +18,24 @@
                 <button type="submit" class="btn btn-primary">Add Word</button>
             </div>
         </form>
+        {% else %}
+        <form class="row g-3" method="POST" action="{{ url_for('edit') }}">
+            <input type="hidden" name="n" class="form-control" value={{word.id}}>
+            <div class="col-md-6">
+                <label class="form-label">Word:</label>
+                <input type="text" name="word" class="form-control" value={{word.word}}>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Meaning:</label>
+                <input type="text" name="meaning" class="form-control" value={{word.meaning}}>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+        {% endif %}
+
+        
     </div>
     
 {% endblock content %}

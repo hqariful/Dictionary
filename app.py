@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, url_for, request
+from flask import request
 from werkzeug.utils import redirect
 from forms import Register
 
@@ -30,15 +31,32 @@ def list():
     wordlist = WordList.query.all()
     return render_template("list.html",words = wordlist)
 
-@app.route('/change',methods = ["GET"])
-def change():
+@app.route('/delete',methods = ["GET"])
+def delete():
     red = request.args.get('target')
+    print(red)
     u = WordList.query.get(int(red))
     db.session.delete(u)
     db.session.commit()
     return redirect(url_for('list'))
 
-@app.route('/register', methods = ['POST', 'GET'])
+@app.route("/edit",methods=["GET","POST"])
+def edit():
+    if request.method == "GET":
+        form = Register()
+        print('GET')
+        w = WordList.query.get(int(request.args.get('id')))
+        return render_template("register.html", form = form, action = "edit", word = w)
+    elif request.method == "POST":
+        print('POST')
+        old = WordList.query.get(int(request.form['n']))
+        old.word = request.form['word']
+        old.meaning = request.form['meaning']
+        db.session.commit()
+        return redirect(url_for('list'))
+    
+
+@app.route('/register', methods = ['POST','GET'])
 def register():
     form = Register()
     if form.validate_on_submit():
@@ -46,7 +64,7 @@ def register():
         db.session.add(new)
         db.session.commit()
         return redirect(url_for('list'))
-    return render_template("register.html", form = form)
+    return render_template("register.html", form = form, action = "register")
 
 if __name__ == "__main__":
     app.run(debug=True)

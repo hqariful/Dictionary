@@ -17,9 +17,13 @@
                     <td>{{word.word}}</td>
                     <td>{{word.meaning}}</td>
                     <td>
-                      <form method = "GET" action="{{url_for('change')}}">
+                      <form method = "GET" action="{{url_for('delete')}}">
                         <input type="hidden" name="target" value="{{word.id}}">
                         <button type="submit">Delete</button>
+                      </form>
+                      <form method = "GET" action="/edit">
+                        <input type="hidden" name="id" value="{{word.id}}">
+                        <button type="submit">Edit</button>
                       </form>
                     </td>
                 </tr>
