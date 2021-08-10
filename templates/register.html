@@ -6,11 +6,11 @@
         {% if action == "register" %}
         <form class="row g-3" method="POST" action="{{ url_for('register') }}">
             {{ form.hidden_tag() }}
-            <div class="col-md-6">
+            <div class="col-md-12">
                 {{ form.word.label(class="form-label") }}
                 {{ form.word(class="form-control") }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 {{ form.meaning.label(class="form-label") }}
                 {{ form.meaning(class="form-control") }}
             </div>
