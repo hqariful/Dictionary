@@ -15,9 +15,10 @@ class WordList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     word = db.Column(db.String(30),nullable=False)
     meaning = db.Column(db.Text,nullable=False)
+    date_posted = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
 
     def __repr__(self):
-        return f"(word: {self.word}, meaning: {self.meaning})"
+        return f"(word: {self.word}, meaning: {self.meaning}, date_posted: {self.date_posted})"
 
 db.create_all()
 
