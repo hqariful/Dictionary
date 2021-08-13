@@ -1,35 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
-    <center><h1>List of saved Words</h1></center>
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Word</th>
-            <th scope="col">Meaning</th>
-            <th scope="col">Date Added</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for word in words %}
-                <tr>
-                    <td>{{word.id}}</td>
-                    <td>{{word.word}}</td>
-                    <td>{{word.meaning}}</td>
-                    <td>{{word.date_posted.strftime("%Y-%m-%d")}}</td>
-                    <td>
-                      <form method = "GET" action="{{url_for('delete')}}">
-                        <input type="hidden" name="target" value="{{word.id}}">
-                        <button type="submit">Delete</button>
-                      </form>
-                      <form method = "GET" action="/edit">
-                        <input type="hidden" name="id" value="{{word.id}}">
-                        <button type="submit">Edit</button>
-                      </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-      </table>
-{% endblock content %}
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Word</th>
+        <th scope="col">Date Saved</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for word in all %}
+      <tr>
+        <th scope="row">{{word.id}}</th>
+        <td><a href="http://127.0.0.1:5000/link/{{word.word}}">{{word.word}}</a></td>
+        <td>{{word.date_added}}</td>
+        <td><a href="http://127.0.0.1:5000/delete/{{word.word}}">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
