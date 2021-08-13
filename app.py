@@ -66,8 +66,11 @@ def list():
 @app.route('/link/<word>')
 def link(word):
     all = wordMeaning(word)
-    return render_template('home.html',all = all,already_saved=is_in_saved(all[0]['word']))
+    if all is None:
+        return render_template('sorry.html')
+    else:
+        return render_template('home.html',all = all,already_saved=is_in_saved(all[0]['word']))
 
 #running the app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
