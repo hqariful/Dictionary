@@ -3,10 +3,14 @@ from datetime import datetime
 from flask.helpers import url_for
 from flask_sqlalchemy import SQLAlchemy
 from details import wordMeaning
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///dict.db"
+#os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 db = SQLAlchemy(app)
 
 #database
